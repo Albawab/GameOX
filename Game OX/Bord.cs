@@ -2,24 +2,30 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace HenE.Abdul.Game_OX
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
-    ///
+    /// Het bord van de spel.
     /// </summary>
     public class Bord
     {
-        private Teken[,] veldenOphetBord = null;
-        private short _dimension = 0;
-        private Spel _spel = null;
+        private readonly Spel spel = null;
+        private readonly Teken[,] veldenOphetBord = null;
+        private short dimension = 0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Bord"/> class.
+        /// De constructeur van bord class.
+        /// </summary>
+        /// <param name="dimension">dimension.</param>
+        /// <param name="spel">spel.</param>
         public Bord(short dimension, Spel spel)
         {
-            this._spel = spel;
+            this.spel = spel;
             this.Dimension = dimension;
             this.veldenOphetBord = new Teken[dimension, dimension];
             this.ResetBord();
@@ -33,7 +39,7 @@ namespace HenE.Abdul.Game_OX
         {
             get
             {
-                return this._dimension;
+                return this.dimension;
             }
 
             private set
@@ -44,24 +50,24 @@ namespace HenE.Abdul.Game_OX
                     Console.WriteLine("Je mag alleen nummers tussen 2 en 9 invoeren");
                 }
 
-                this._dimension = value;
+                this.dimension = value;
             }
         }
 
         /// <summary>
         /// Deze method tekent het bord er staat de teken op.
         /// </summary>
-        /// <param name="speler">De naam van de speler</param>
+        /// <param name="speler">De naam van de speler.</param>
         /// <param name="teken">welke teken de speler gaat gebruiken.</param>
         public void TekenBord()
         {
             // herschrijven , dat je de 1-- 9 index toont als het veld leeg is.
             short index = 1;
             StringBuilder line = new StringBuilder();
-            string lijn = "";
+            string lijn = string.Empty;
             for (int column = 0; column < this.Dimension; column++)
             {
-                lijn = "";
+                lijn = string.Empty;
                 for (int row = 0; row < this.Dimension; row++)
                 {
                     if (this.veldenOphetBord[column, row] == Teken.Undefined)
@@ -92,7 +98,7 @@ namespace HenE.Abdul.Game_OX
                     }
 
                     // + toevoegen of niet?
-                    if (row != this.Dimension-1)
+                    if (row != this.Dimension - 1)
                     {
                         line.Append("  |   ");
                         if (column != this.Dimension - 1)
@@ -140,16 +146,15 @@ namespace HenE.Abdul.Game_OX
         /// <param name="index">index van het veld.</param>
         public void ResetVeld(short index)
         {
-            short col, row = 0;
-            this.ConvertIndexToArray(index, out col, out row);
+            this.ConvertIndexToArray(index, out short col, out short row);
             this.ResetVeld(col, row);
         }
 
         /// <summary>
-        ///
+        /// Doet deze method het bord leeg.
         /// </summary>
-        /// <param name="column"></param>
-        /// <param name="row"></param>
+        /// <param name="column">column.</param>
+        /// <param name="row">row.</param>
         public void ResetVeld(short column, short row)
         {
             this.veldenOphetBord[column, row] = Teken.Undefined;
@@ -162,14 +167,7 @@ namespace HenE.Abdul.Game_OX
         /// <returns>true als de zet gedaan mag worden.</returns>
         public bool IsValidZet(short indexOpHetBord)
         {
-            // todo Abdul bepalen
-            // een valide zet, valt binnen het bord en het veld moet leeg zijn.
-            // index > 0
-            // index < (dimension * dimension)
-            // [col, row] == Teken.Undefined
-            short column = 0;
-            short row = 0;
-            this.ConvertIndexToArray(indexOpHetBord, out column, out row);
+            this.ConvertIndexToArray(indexOpHetBord, out short column, out short row);
             if (this.veldenOphetBord[column, row] != Teken.Undefined)
             {
                 return false;
@@ -179,23 +177,26 @@ namespace HenE.Abdul.Game_OX
         }
 
         /// <summary>
-        ///
+        /// Zet een teken op het bord.
         /// </summary>
-        /// <param name="speler"></param>
-        /// <param name="indexOpHetBord"></param>
+        /// <param name="speler">Speler.</param>
+        /// <param name="indexOpHetBord">Index op het bord.</param>
         public void DoeZet(Speler speler, short indexOpHetBord)
         {
-            short column = 0;
-            short row = 0;
-
-            this.ConvertIndexToArray(indexOpHetBord, out column, out row);
+            this.ConvertIndexToArray(indexOpHetBord, out short column, out short row);
 
             this.veldenOphetBord[column, row] = speler.TeGebruikenTeken;
         }
 
-        public Speler TegenSpeler(Speler huidigeSpeler)
+        /// <summary>
+        /// Andre speler.
+        /// </summary>
+        /// <param name="huidigeSpeler">huidige speler.</param>
+        /// <param name="spelers">spelers.</param>
+        /// <returns>De tegen speler.</returns>
+        public Speler TegenSpeler(Speler huidigeSpeler, IList<Speler> spelers)
         {
-            return this._spel.TegenSpeler(huidigeSpeler);
+            return this.spel.TegenSpeler(huidigeSpeler, spelers);
         }
 
         /// <summary>
@@ -280,15 +281,14 @@ namespace HenE.Abdul.Game_OX
             short maxDim = this.Dimension;
             maxDim--;
 
-            for (short col = maxDim; col >= 0; col--)
+            heeftIemandGewonnen = true;
+
+            for (short row = 0; row < this.Dimension; row++)
             {
-                for (short row = 0; row < this.Dimension; row++)
+                if (this.veldenOphetBord[maxDim--, row] != teken)
                 {
-                    if (this.veldenOphetBord[col, row] != teken)
-                    {
-                        heeftIemandGewonnen = false;
-                        break;
-                    }
+                    heeftIemandGewonnen = false;
+                    break;
                 }
             }
 
@@ -296,11 +296,33 @@ namespace HenE.Abdul.Game_OX
         }
 
         /// <summary>
-        ///
+        /// geeft de mogelijke vrije velden terug op basis van index.
         /// </summary>
-        /// <param name="rij"></param>
-        /// <param name="teken"></param>
-        /// <returns></returns>
+        /// <returns>lijst met de mogelijke indexen.</returns>
+        public List<short> VrijVelden()
+        {
+            List<short> result = new List<short>();
+
+            for (short col = 0; col < this.Dimension; col++)
+            {
+                for (short row = 0; row < this.Dimension; row++)
+                {
+                    if (this.veldenOphetBord[col, row] == Teken.Undefined)
+                    {
+                        result.Add(this.ConvertColRowToIndexToArray(col, row));
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// controleer of de row heeft het zelfde teken.
+        /// </summary>
+        /// <param name="rij">rij.</param>
+        /// <param name="teken">teken.</param>
+        /// <returns>False of true.</returns>
         private bool AreAllFieldsInTheRowEqualTo(short rij, Teken teken)
         {
             // loop door de kolomnen als er een teken anders is dan het gevraagde teken, return false
@@ -370,28 +392,6 @@ namespace HenE.Abdul.Game_OX
 
             // hoe kom ik van row en col naar index?
             return index;
-        }
-
-        /// <summary>
-        /// geeft de mogelijke vrije velden terug op basis van index
-        /// </summary>
-        /// <returns>lijst met de mogelijke indexen</returns>
-        public List<short> VrijVelden()
-        {
-            List<short> result = new List<short>();
-
-            for (short col = 0;  col < this.Dimension; col++)
-            {
-                for (short row = 0; row < this.Dimension; row++)
-                {
-                    if (this.veldenOphetBord[col, row] == Teken.Undefined)
-                    {
-                        result.Add(this.ConvertColRowToIndexToArray(col, row));
-                    }
-                }
-            }
-
-            return result;
         }
     }
 }

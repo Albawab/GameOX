@@ -4,8 +4,14 @@
 
 namespace HenE.Abdul.Game_OX
 {
+    /// <summary>
+    /// Het Teken van de spel.
+    /// </summary>
     public enum Teken
     {
+        /// <summary>
+        /// Undefind
+        /// </summary>
         Undefined = 0,
 
         /// <summary>

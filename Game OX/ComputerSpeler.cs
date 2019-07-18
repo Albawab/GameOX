@@ -1,12 +1,23 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿// <copyright file="ComputerSpeler.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace HenE.Abdul.Game_OX
 {
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// speler die geen in put heeft en zelf zaken kan bedenken.
+    /// </summary>
     public class ComputerSpeler : Speler
     {
-        public ComputerSpeler(string name) : base(name)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComputerSpeler"/> class.
+        /// </summary>
+        /// <param name="name">name.</param>
+        public ComputerSpeler(string name)
+            : base(name)
         {
         }
 
@@ -15,8 +26,9 @@ namespace HenE.Abdul.Game_OX
         /// Kun je winnen? bepalen.
         /// </summary>
         /// <param name="bord">het bord waarp gespeeld wordt. </param>
+        /// <param name="spelers">De spelers.</param>
         /// <returns>index van het veld op het bord. </returns>
-        public override short BepaalZet(Bord bord)
+        public override short BepaalZet(Bord bord, IList<Speler> spelers)
         {
             // todo
             // welke vakjes zijn nog leeg?
@@ -37,8 +49,10 @@ namespace HenE.Abdul.Game_OX
                 }
                 else
                 {
+                    Spel spel = new Spel();
+
                     // ik heb niet gewonnen, reset het veld en laat de tegespeler de zet doen
-                    Speler tegenSpeler = bord.TegenSpeler(this);
+                    Speler tegenSpeler = bord.TegenSpeler(this, spelers);
 
                     bord.DoeZet(tegenSpeler, index);
                     if (bord.HeeftTekenGewonnen(tegenSpeler.TeGebruikenTeken))
@@ -55,29 +69,21 @@ namespace HenE.Abdul.Game_OX
 
             // als ik hier kom,
             return vrijeVelden[0];
+        }
 
-            // is er een volgende zet
-             // ja, probeer die dan
-             // nee,
-             //  loop dan weer door de mogelijke zetten heen
-               // nee, is er dan een volgende
-                  // ja, kijk daar dan mee
-                  // nee
-                  // dan kies ik de eerste uit de mogelijke zetten
+        /// <inheritdoc/>
+        public override void UHeeftGewonnen()
+        {
+        }
 
-            // kan ik winnen?
-            // ja, dan dat vakje kiezen
-            // nee
-            // kan de tegenstander winnen?
-            // ja
-            // dan dat vakje kiezen
-            // anders kies de eerste
-            Random random = new Random();
-            int bepaalHetBord = bord.Dimension * bord.Dimension;
-            int result = random.Next(0, bepaalHetBord);
+        /// <inheritdoc/>
+        public override void UkrijgtEenPunt(Speler speler)
+        {
+        }
 
-            short i = (short)result;
-            return i;
+        /// <inheritdoc/>
+        public override void HetBoordIsVol()
+        {
         }
     }
 }

@@ -36,3 +36,13 @@ C:\Users\Abdul\Desktop\Sharp\C-\Game OX\Game OX\obj\Debug\Game OX.pdb
 C:\Users\Abdul\Desktop\Sharp\C-\Game OX\Game OX\bin\Debug\log4net.dll
 C:\Users\Abdul\Desktop\Sharp\C-\Game OX\Game OX\bin\Debug\log4net.xml
 C:\Users\Abdul\Desktop\Sharp\C-\Game OX\Game OX\obj\Debug\Game OX.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\bin\Debug\Game OX.exe.config
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\bin\Debug\Game OX.exe
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\bin\Debug\Game OX.pdb
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\bin\Debug\log4net.dll
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\bin\Debug\log4net.xml
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\obj\Debug\Game OX.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\obj\Debug\Game OX.csproj.CoreCompileInputs.cache
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\obj\Debug\Game OX.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\obj\Debug\Game OX.exe
+C:\Users\Abdul\Desktop\Sharp\GameOX\Game OX\obj\Debug\Game OX.pdb

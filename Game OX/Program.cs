@@ -2,47 +2,21 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using HenE.Abdul.Game_OX;
-using System.Net.Sockets;
-using System;
-using System.Net;
-using System.Text;
-
 namespace Game_OX
 {
-    class Program
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Text;
+    using HenE.Abdul.Game_OX;
+
+    /// <summary>
+    /// De program van de spel.
+    /// </summary>
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            //// connect met server.
-            //// https://www.youtube.com/watch?v=KxdOOk6d_I0.
-            //TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8080);
-
-            //// start de server.
-            //server.Start();
-            //Console.WriteLine("Server Started ...");
-            //Console.WriteLine("Server has started on 127.0.0.1:80 {0} wating for a connection ...", Environment.NewLine);
-
-            //// Accept de cleint.
-            //TcpClient client = server.AcceptTcpClient();
-            //Console.WriteLine("A cleint connected .");
-
-            //NetworkStream stream = client.GetStream();
-            //while (true)
-            //{
-            //    while (!stream.DataAvailable)
-            //    {
-            //        byte[] bytes = new byte[client.Available];
-            //        string msg = Encoding.UTF8.GetString(bytes);
-            //        bytes = Encoding.UTF8.GetBytes(msg);
-            //        stream.Write(bytes, 0, bytes.Length);
-            //        stream.Read(bytes, 0, bytes.Length);
-
-            //        stream.Close();
-            //        client.Close();
-            //    }
-            //}
-
             Spel spel = new Spel();
             //// STap 1 eerste speler toevoegen
             // // vraag aan de gebruiker of hij een human of computer speler wilt toevoegen
@@ -91,7 +65,7 @@ namespace Game_OX
 
             // hier nog de vraag of hij tegen de compueter of opersoon wilt spelen
             Console.WriteLine("Wil je tegen de computer spelen , J of N ? ");
-            string tegenWieGaSpelen = "";
+            string tegenWieGaSpelen = string.Empty;
             tegenWieGaSpelen = Console.ReadLine().ToLower();
             while ((tegenWieGaSpelen != "j") && (tegenWieGaSpelen != "n"))
             {
